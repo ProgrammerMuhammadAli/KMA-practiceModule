@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY FIRST PAGE</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px
+        }
+
+        .mobilediv {
+            display: none;
+        }
+
+        @media (min-width: 600px) {
+            header div {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header ul {
+                display: none;
+            }
+
+            .mobilediv {
+                display: block;
+                height: 100%;
+                padding-right: 10px;
+            }
+
+            .mobilediv label {
+                height: max-content;
+                float: right;
+                position: fixed;
+                top: 55%;
+            }
+
+            .nav:hover {
+                background-color: cadetblue;
+            }
+
+            main {
+                width: 100%;
+                height: 400px;
+                padding: 4px;
+                display: flex;
+                justify-content: space-evenly;
+                flex-direction: column;
+                overflow: scroll;
+                align-items: center;
+            }
+
+            main div {
+                width: 75%;
+                height: 200px;
+            }
+
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        header ul {
+            margin-left: auto;
+            margin-right: auto;
+            background-color: rgb(101, 224, 64);
+            border-bottom: 2px lightblue;
+            width: 100%;
+            height: 50px;
+            padding: 5px 0px
+        }
+
+        header {
+            border-bottom: 2px solid lightblue;
+            width: 100%;
+            height: 50px;
+            padding: 0px 0px;
+        }
+
+        header ul {
+            list-style: none;
+            /* margin: 10px 5px 15px; */
+        }
+
+        header ul li {
+            float: left;
+            padding: 3px 9px;
+        }
+
+        header ul li:hover {
+            /* background-color: rgb(255, 0, 0); */
+            border-bottom: 2px solid;
+            animation-delay: 5000ms;
+        }
+
+        label {
+            cursor: pointer;
+            border-right: 1px solid #d1d4d9;
+            display: block;
+            height: 4rem;
+            width: 4rem;
+            position: relative;
+        }
+
+        label span {
+            border-radius: 15%;
+            height: 3px;
+            width: 32px;
+            background-color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+            transition: all 0.3s ease-out;
+        }
+
+        label span::before {
+            border-radius: 15%;
+            position: absolute;
+            content: "";
+            height: 100%;
+            width: 100%;
+            background-color: white;
+            top: 400%;
+            transition: all 0.3s ease-out;
+        }
+
+        label span::after {
+            border-radius: 15%;
+            position: absolute;
+            content: "";
+            height: 100%;
+            width: 100%;
+            background-color: white;
+            top: -100%;
+            transition: all 0.3s ease-out;
+        }
+
+        label:hover span {
+            height: 0;
+            transition: all 0.3s ease-out;
+        }
+
+        label:hover span::before {
+            height: 3px;
+            transform: rotate(-45deg);
+            transition: all 0.3s ease-out;
+        }
+
+        label:hover span::after {
+            height: 3px;
+            transform: rotate(45deg);
+            transition: all 0.3s ease-out;
+        }
+
+        .nav {
+            display: none;
+            border-left: 1px solid white;
+            border-right: 1px solid white;
+            border-bottom: 1px solid white;
+            max-width: 300px;
+            background-color: beige;
+            transform: translateX(-100%) scale(1, 0.1);
+            transform-origin: top left;
+            transition: all 0.3s ease-out;
+            position: fixed;
+            right: 0px;
+            height: 400px;
+            width: 300px;
+            text-align: center;
+            /* display: flex;
+            align-items: flex-start;
+            justify-content: space-around;
+            flex-direction: row-reverse;
+            flex-wrap: wrap;
+            align-content: space-between; */
+        }
+
+        .nav ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .nav ul li {
+            border-top: 1px solid white;
+            opacity: 0;
+            transform: translateX(-100%);
+            transition: all 0.6s all ease-out;
+        }
+
+        .nav ul li a {
+            transition: all 0.3s ease-out;
+            line-height: 1rem;
+            text-decoration: none;
+            color: #8a8d92;
+            display: block;
+            padding: 1rem;
+        }
+
+        .nav ul li:first-child {
+            border-top: none;
+        }
+
+        .nav ul li:hover a {
+            color: white;
+            background-color: #6d747e;
+            transition: all 0.3s ease-out;
+        }
+
+        .nav ul li:hover a i {
+            color: white;
+        }
+
+        .navBtn:checked~.nav {
+            transform: translateX(0);
+            transition: all 0.3s ease-out;
+            display: block;
+        }
+
+        .navBtn:checked~.nav ul li {
+            opacity: 1;
+            transform: translateX(0);
+            transition: all 0.6s ease-out;
+        }
+
+        .navBtn {
+            display: none;
+        }
+
+        .margin label {
+            margin-top: 15px;
+            float: right;
+        }
+
+        /* .flex {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+        } */
+
+        /* .block-2 {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+        } */
+        main {
+            width: 100%;
+            height: 400px;
+            padding: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        main div {
+            width: 25%;
+            height: 200px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-column-gap: 10px;
+            grid-row-gap: 10px;
+        }
+
+        .grid #block-col {
+            grid-column: span 2 / span 2;
+            background-color: aqua;
+        }
+
+        .grid #block-row {
+            grid-row: span 2 / span 2;
+            background-color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- next.js nuxt.js these languages are future -->
+    <header>
+        <div class="mobile-div">
+            <div class="margin">
+                <label for="navBtn">
+                    <i class="fa fa-bars"></i>
+                    <img src="Facebook-logo.png" alt="Facebook-logo" height="100px">
+                </label>
+            </div>
+        </div>
+        <ul>
+            <B>
+                <li>HOME</li>
+                <li>ABOUT</li>
+                <li>INFO</li>
+            </B>
+        </ul>
+    </header>
+    <input type="checkbox" class="navBtn" id="navBtn">
+    <aside class="nav">
+        <ul>
+            <li>html</li>
+            <li>CSS</li>
+            <li>JAVAScript</li>
+        </ul>
+    </aside>
+    <main>
+        <div class=block-2>
+            <h1 style="font-size: xx-large; color: rgb(0, 0, 0);">HEADING1</h1>
+            <p>JHGDJBAHSFMNDAFBHA ASUDHKJSBA AUS DKAKUDAH </p>
+        </div>
+        <div class="flex">
+            <h1>heading 2</h1>
+            <p>adkfjhdjfh sajkdhfadhfashd fasdhias ajfhskasj fhakj
+                <br>
+                jgfakjsdfhkjafhioawe asjfhnjlk &#128525;&#128536;
+                <!-- <img src="https://www.motortrend.com/uploads/2022/10/2023-BMW-M5-exterior-8.jpg?fit=around%7C875:492.1875"
+                    alt="CAR PIC" height="150"> -->
+            </p>
+
+        </div>
+    </main>
+    <div class="grid">
+        <div id="block">
+            <h1 style="font-size: xx-large; color: rgb(0, 0, 0);">HEADING1</h1>
+            <p>JHGDJBAHSFMNDAFBHA ASUDHKJSBA AUS DKAKUDAH </p>
+        </div>
+        <div id="block-2">
+            <h1>heading 2</h1>
+            <p>adkfjhdjfh sajkdhfadhfashd fasdhias ajfhskasj fhakj
+                <br>
+                jgfakjsdfhkjafhioawe asjfhnjlk &#128525;&#128536;
+                <!-- <img src="https://www.motortrend.com/uploads/2022/10/2023-BMW-M5-exterior-8.jpg?fit=around%7C875:492.1875"
+                    alt="CAR PIC" height="150"> -->
+        </div>
+        <div id="block-row">
+            <h1 style="font-size: xx-large; color: rgb(0, 0, 0);">HEADING1</h1>
+            <p>JHGDJBAHSFMNDAFBHA ASUDHKJSBA AUS DKAKUDAH </p>
+        </div>
+        <div id="block-col">
+            <h1 style="font-size: xx-large; color: rgb(0, 0, 0);">HEADING1</h1>
+            <p>JHGDJBAHSFMNDAFBHA ASUDHKJSBA AUS DKAKUDAH </p>
+        </div>
+        <div id="block-2">
+            <h1>heading 2</h1>
+            <p>adkfjhdjfh sajkdhfadhfashd fasdhias ajfhskasj fhakj
+                <br>
+                jgfakjsdfhkjafhioawe asjfhnjlk &#128525;&#128536;
+                <!-- <img src="https://www.motortrend.com/uploads/2022/10/2023-BMW-M5-exterior-8.jpg?fit=around%7C875:492.1875"
+                    alt="CAR PIC" height="150"> -->
+        </div>
+    </div>
+    <footer>
+
+        <ul>
+            <B>
+                <li>HOME</li>
+                <li>ABOUT</li>
+                <li>CONTACT</li>
+            </B>
+        </ul>
+    </footer>
+    <script>
+
+    </script>
+</body>
+
+</html>

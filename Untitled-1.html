@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+<title>Form - Programming Javascript</title>
+</head>
+<body>
+<div id="main_page_div">
+    <div id="main_form_div">
+        <form id="contact_fomr" name="" action="#">
+            <label>Name</label>
+            <input type="text" name="name" id="input_name" />
+            <label>Email</label>
+            <input type="email" name="email" id="input_email" />
+            <label>Phone no</label>
+            <input type="tel" name="phone" id="input_phone" />
+            <label>Address</label>
+            <textarea id="address_text"></textarea>
+            <input type="button" onclick="saveData()" value="Save"/>
+        </form>
+        <a target="" href="index.html">Go to previous page</a>
+    </div>
+    <div style="border-top:2px solid black; margin-top: 10px;">
+        <table id="studentDataTable">
+            <thead>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    var studentsDetail = [];
+
+    function saveData() {
+        debugger;
+         var name = document.getElementById("input_name");
+         var phone = document.getElementById("input_phone");
+         var email = document.getElementById("input_email");
+         var address = document.getElementById("address_text");
+        
+         studentsDetail.push({
+            "name": name.value,
+            "email": email.value,
+            "phone": phone.value,
+            "address": address.value,
+         });
+
+        clearData(['input_name', 'input_phone', 'input_email', 'address_text']);
+
+        renderTableData();
+    } 
+
+
+    /**
+     * This function is used for clearing data from fields
+     * 
+     * @param Array fields
+     * 
+     */
+    function clearData(fields= []) {
+        for( var i = 0; i < fields.length; i++ ) {
+            document.getElementById(fields[i]).value = ""
+        }
+    }
+
+    
+    /**
+     * This function use to render Array in table
+     * 
+     * 
+     * 
+     */
+    function renderTableData() {
+        debugger;
+        var table = document.getElementById("studentDataTable");
+        var tbody = table.children[1];
+        table.removeChild(tbody);
+        var newTBody = document.createElement("tbody");
+        studentsDetail.forEach((student, index) => {
+            var tr = document.createElement("tr");
+            var detail = prepareTableData(student);
+            detail.forEach((val, index) => {
+                var td = document.createElement("td");
+                td.innerHTML = val
+                tr.appendChild(td);
+            })
+            newTBody.appendChild(tr);
+        })
+        table.appendChild(newTBody);
+    }
+
+    /**
+     * This function gives us an array of data
+     * so we can render each value in seperate 
+     * "td"
+     * 
+     * @param Object student
+     * 
+     */
+    function prepareTableData(student) {
+        // spreading object like variable 
+        const { name, address, phone, email } = student;
+        return [name,email,phone,address];
+    }
+
+
+</script>
+</body>
+</html>

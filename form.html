@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Form </title>
+</head>
+
+<body>
+    <div id="main_page_div">
+        <div id="main_form_div">
+            <form id="contact_fomr" name="" action="#">
+                <label>Name</label>
+                <input type="text" name="name" id="input_name" />
+                <label>Email</label>
+                <input type="email" name="email" id="input_email" />
+                <label>Phone no</label>
+                <input type="tel" name="phone" id="input_phone" />
+                <label>Address</label>
+                <textarea id="address_text"></textarea>
+                <input type="button" onclick="saveData()" value="Save" />
+            </form>
+            <a target="" href="index.html">Go to previous page</a>
+        </div>
+
+        <div style="border-top: 2px solid black; margin-top: 10px;">
+            <table id="studentdatatable">
+                <thead>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Action </th>
+                </thead>
+                <tbody>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        var editStatus = false;
+        var currentStudentIndex = null;
+
+
+        var studentsDetail = [];
+        function saveData() {
+            var name = document.getElementById("input_name");
+            var phone = document.getElementById("input_phone");
+            var email = document.getElementById("input_email");
+            var address = document.getElementById("address_text");
+            // {} stands for OBJECTS
+            // [] stands for ARRAY  
+            // () stands for FUNCTION 
+
+            if (editStatus && currentStudentIndex != null) {
+                studentsDetail[currentStudentIndex] = {
+                    "name": name.value,
+                    "email": email.value,
+                    "phone": phone.value,
+                    "address": address.value,
+                }
+                currentStudentIndex = null
+                editStatus = false
+            }
+            else {
+                studentsDetail.push({
+                    "name": name.value,
+                    "email": email.value,
+                    "phone": phone.value,
+                    "address": address.value,
+                })
+            }
+            // if aur else ki condition hatane ke bad niche waly ko un comment
+            // studentsDetail.push({
+            //     "name": name.value,
+            //     "email": email.value,
+            //     "phone": phone.value,
+            //     "address": address.value,
+            // });
+
+
+            clearData(['input_name', 'input_phone', 'input_email', 'address_text']);
+
+
+            renderTableData();
+        }
+
+        var globalFields = ['input_name', 'input_phone', 'input_email', 'address_text']
+        /**
+         *This function is used for clearing data from fields
+         * 
+         *@param Array fields
+         * 
+         */
+        debugger;
+        function clearData(fields = [], values = ['', '', '', '']) {
+            for (var i = 0; i < fields.length; i++) {
+                document.getElementById(fields[i]).value = (values[i])
+            }
+        }
+        // console.log(clearData)
+
+        /*
+        *This function use to render Array in table
+        *
+        * 
+        * 
+        */
+
+        function renderTableData() {
+            debugger;
+            var table = document.getElementById("studentdatatable");
+            var tbody = table.children[1];
+            table.removeChild(tbody);
+            var newTBody = document.createElement("tbody");
+            studentsDetail.forEach((student, index) => {
+                var tr = document.createElement("tr");
+                var detail = prepareTableData(student);
+                detail.forEach((val, index) => {
+                    var td = document.createElement("td");
+                    td.innerHTML = val
+                    tr.appendChild(td);
+                })
+                // concatinate  example = 'string' = index 
+                var editAct = '<button onclick="editStudent(' + index + ')"> Edit </button> ';
+                var deleteAct = '<button onclick="deleteStudent(' + index + ')"> Delete </button> ';
+                var td = document.createElement("td");
+                // concatinate  example = 'string' = index
+                td.innerHTML = editAct + deleteAct
+                tr.appendChild(td);
+
+
+
+                newTBody.appendChild(tr);
+            })
+            table.appendChild(newTBody);
+        }
+        /*
+        *This function gives us an array of data
+        *so we can render each value in seperate 
+        * "td"
+        * 
+        * 
+        * 
+        */
+        function prepareTableData(student) {
+            // spreading object like variable
+            const { name, address, phone, email } = student;
+            return [name, email, phone, address];
+        }
+        /*
+        * This function is removing data from array with the help of array methods "Splice" 
+        *
+        * 
+        * @param Integer index
+        */
+        function deleteStudent(index = 0) {
+            studentsDetail.splice(index, 1);
+            renderTableData();
+
+        }
+        /*
+        *
+        *@param Integer index
+        *@param clear Data
+        */
+        debugger;
+        function editStudent(index = 0) {
+            debugger;
+            editStatus = true;
+            currentStudentIndex = index;
+            const { name, address, phone, email, } = studentsDetail[index];
+            var values = [name, phone, email, address];
+            clearData(globalFields, values);
+
+        }
+    </script>
+</body>
+
+</html>

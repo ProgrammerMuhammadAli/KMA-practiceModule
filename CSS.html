@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+<title>Word To Html</title>
+</head>
+<body>
+<div id="main_page_div">
+    <div id="main_form_div">
+        <form id="contact_fomr" name="" action="#">
+            <label>Name</label>
+            <input type="text" name="name" id="input_name" />
+            <label>Email</label>
+            <input type="email" name="email" id="input_email" />
+            <label>Phone no</label>
+            <input type="tel" name="phone" id="input_phone" />
+            <label>Address</label>
+            <textarea id="address_text"></textarea>
+            <input type="button" onclick="saveData()" value="Save"/>
+        </form>
+        <a target="" href="index.html">Go to previous page</a>
+    </div>
+</div>
+<script>
+    // data types = boolean float integer string numbeer object array double decimal bigInteger time date binary txt blob
+    // students = ["shoaib", "hammad", "talha", "ayan"] Normal Array
+    // studentsDetail = [
+        // { name:"shoaib", age: "19", result: "82%"}, 
+        // { name:"hammad", age: "16", result: "84%"}, 
+        // { name:"talha", age: "17", result: "86%"}, 
+        // { name:"ayan", age: "15", result: "87%"}
+    // ] Array of Objects
+    
+    // classes = [1,2,3,4,5,6,7,8,9, "grade-1"]
+    // classes = [true,false, true]
+    // student = { name:"hammad", age: "22", result: "80%"}
+
+
+    // if examples and explanation
+    // && ka matlab donu conditions fullfill hony chaiye hai 
+    // || ka matlab koi bh condition fullfill kar rae ho
+
+    // if(name.value != "ahmed raza" && name.value != "Ahmed Raza") {
+    //     alert(name.value);
+    // } else if (name.value != "hamza" && name.value != "Hamza") {
+    //     alert(name.value);
+    // }
+    // else {
+    //     alert("condition isn't fullfill")
+    // }
+
+    // responsibility operator
+    // let const var javacript
+
+
+    // yeh batata hai is function ma kb kahan kia hora hai 
+    // debugger;
+
+    var studentsDetail = [];
+
+    function saveData() {
+        debugger;
+         var name = document.getElementById("input_name");
+         var phone = document.getElementById("input_phone");
+         var email = document.getElementById("input_email");
+         var address = document.getElementById("address_text");
+        
+         studentsDetail.push({
+            "name": name.value,
+            "email": email.value,
+            "phone": phone.value,
+            "address": address.value,
+         });
+
+         clearData(['input_name', 'input_phone', 'input_email', 'address_text']);
+    } 
+    function clearData(fields= []) {
+        for( var i = 0; i < fields.length; i++ ) {
+            document.getElementById(fields[i]).value = ""
+        }
+    }
+</script>
+</body>
+</html>
